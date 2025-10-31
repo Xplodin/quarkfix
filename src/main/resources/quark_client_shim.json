@@ -1,0 +1,14 @@
+{
+  "blocks": [
+    "ancient_button"
+  ],
+  "items": [
+    "ancient_button"
+  ],
+  "entities": [
+    "stool"
+  ],
+  "sounds": [
+    "block.pipe.leak"
+  ]
+}

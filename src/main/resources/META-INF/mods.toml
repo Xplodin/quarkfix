@@ -1,0 +1,31 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="quark_client_shim"
+version="${file.jarVersion}"
+displayName="Quark Client Shim"
+authors="you"
+description='''Client-only shim that registers placeholder entries for missing quark IDs to allow registry sync to decode. Extremely experimental; not for production.'''
+
+displayTest="IGNORE_ALL_VERSION"
+
+[[dependencies.quark_client_shim]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+
+[[dependencies.quark_client_shim]]
+modId="quark"
+mandatory=false
+versionRange="[0,)"
+ordering="AFTER"
+side="CLIENT"
+
+[[dependencies.quark_client_shim]]
+modId="zeta"
+mandatory=false
+versionRange="[0,)"
+ordering="AFTER"
+side="CLIENT"

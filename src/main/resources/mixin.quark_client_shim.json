@@ -1,0 +1,12 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.example.quarkshim.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "quark-client-shim.refmap.json",
+  "mixins": [
+    "com.bean.quarkshim.mixin.NetworkRegistryClientBypass"
+  ],
+  "client": [],
+  "server": []
+}

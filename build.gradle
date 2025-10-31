@@ -1,0 +1,77 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '6.0.+'
+}
+
+group = 'com.bean.quarkfix'
+version = '1.0.0'
+archivesBaseName = 'quark-client-shim'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+    withSourcesJar()
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    copyIdeResources = true
+    runs {
+        client {
+            workingDirectory project.file('run-client')
+            mods {
+                quark_client_shim {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.minecraftforge.net' }
+    maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
+    compileOnly 'org.spongepowered:mixin:0.8.5'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += [
+        "-AoutRefMap=${project.name}.refmap.json",
+        "-AdefaultObfuscationEnv=searge"
+    ]
+}
+
+jar {
+    manifest {
+        attributes([
+            'Specification-Title'   : 'Quark Client Shim',
+            'Specification-Vendor'  : 'example',
+            'Specification-Version' : '1',
+            'Implementation-Title'  : project.name,
+            'Implementation-Version': project.version,
+            'Implementation-Vendor' : 'example',
+            'MixinConfigs'          : 'mixin.quark_client_shim.json',
+            'Automatic-Module-Name' : 'quark.client.shim.mod'
+        ])
+    }
+    from('LICENSE') { into('/') }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact sourcesJar
+        }
+    }
+}
